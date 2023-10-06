@@ -1,0 +1,38 @@
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Question : MergeBinaryTree
+
+node1 - corresponding to BinaryTree1
+node2 - corresponding to BinaryTree2
+
+Recursive function takes node1 , node2
+  - assuming that they have already being merged. node1.value contains sum of node1.value and node2.value
+  - what this function does is , merges left subtree , merges right subtree recursively.
+    - how does it merges them recursively ?
+      - Checks if left of node1 is null , then make a new node. Store sum(0,node2.value) in node1.left.value
+      - If node1.left is not null , then store Sum(node1.left.value , node2.left.value) in node1.left.value.
+      - We donot check for null on node2. But , there is a blind spot in this logic. What is the blind spot ?
+        - We are directly checking whether node1.left or node2.left is not null. First check is : whether any of the two node has left as non null.
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Question : SymmetricalTree :
+
+	- 2 lists : parentList , childList - Stores nodes of parent and child. Actually stores references.
+
+	- What is the purpose of these 2 lists : Just stores references in an order that I want to access in i.e. all nodes on a level are stored in a list , can think of that as an array. Now , there's always a tradeoff between computation / memory i.e. I can definitely read the nodes in this particular order without storing them in a queue. That would save us memory , but , that wouldn't be very efficient.
+
+	- To optimize this solution , what are all the possible ways :
+		1. We can optimize the current approach : i.e. check each level for palindrome. Store each level as a list. Even with current approach , we can optimize on few things like :
+			a. I am checking for palindromes in a function , counting nulls in a different function. This would need 2 traversals of every childList. Why not do that in a single traversal. We can definitely save 1 traversal per list.
+			b. Combine the logic for terminating the do while loop. Make it more coherent.
+
+		2. Or , I can look for a different approach altogether. For that , revisit the requirements of question , and , see if you're assuming some things or not seeing certain things clearly. Capture the requirements crisply and then see if there's any other way to achieve this.
+			- I want to look for mirror images. Nodes are definitely different , just the data is same. So , can't directly compare parent nodes and say that child will also be same.
+			- We definitely have to look at data of each node. Now , I cannot traverse a tree's level linarly. I can only go left , right. Either I have to maintain a variable to count levels recursively. That would accomplish one purpose i.e. you can tell that this node belongs to level x , where x is value of that variable. But , you cannot tell which other nodes were present at that level and you certainly cannot tell the order in which they were present.
+			- I can convert the tree into a 2-D array or linked list. And , then check for palindrome at each level. I would be traversing all the nodes twice - once to write them into LL and then again to check for palindrome in LL. But , I don't need them all in a 2-D LL at a time. I only need nodes (that are present at a level) at a time. My exisiting approach is better than this in terms of memory requiremnt. And , I can make it to traverse the nodes same number of time(i.e. twice) : So , that would make it equal in TC as well.
+
+		- So , we are going with our existing approach. But , optimize that.
+
+    - 2 variables : terminate , isNotMirrorImage
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
